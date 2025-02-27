@@ -15,7 +15,7 @@ const Tab = createBottomTabNavigator()
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={{tabBarLabelStyle: {fontSize: 12, color: 'black'}, tabBarStyle: {height: 58}}}>
+      <Tab.Navigator screenOptions={{tabBarLabelStyle: {fontSize: 12, color: 'black'}, tabBarStyle: {height: 58}, tabBarActiveBackgroundColor: '#E2E1F3'}}>
         <Tab.Screen
           name='Locations'
           component={Locations}
