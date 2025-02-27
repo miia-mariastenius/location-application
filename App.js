@@ -3,34 +3,40 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from './styles/Styles';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { IconButton } from 'react-native-paper';
+import Locations from './screens/Locations';
+import AddLocation from './screens/AddLocation';
+import Map from './screens/Map';
+import Capitals from './screens/Capitals';
 
 const Tab = createBottomTabNavigator()
 
-const LOCATIONS = 'Locations'
-const ADD_LOCATION = 'Add Location'
-const MAP = 'Map'
-const CAPITALS = 'Capitals'
-const icons = {
-  [LOCATIONS]: 'list',
-  [ADD_LOCATION]: 'add',
-  [MAP]: 'map',
-  [CAPITALS]: 'flag',
-}
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name={LOCATIONS} component={LocationsScreen}/>
-        <Tab.Screen name={ADD_LOCATION} component={AddLocationScreen}/>
-        <Tab.Screen name={MAP} component={MapScreen}/>
-        <Tab.Screen name={CAPITALS} component={CapitalsScreen}/>
+      <Tab.Navigator screenOptions={{tabBarLabelStyle: {fontSize: 12, color: 'black'}, tabBarStyle: {height: 58}}}>
+        <Tab.Screen
+          name='Locations'
+          component={Locations}
+          options={{tabBarIcon: () => <IconButton icon={'format-list-bulleted'} size={24}/>}}
+        />
+        <Tab.Screen
+          name='Add Location'
+          component={AddLocation}
+          options={{tabBarIcon: () => <IconButton icon={'plus-circle'} size={24}/>}}
+        />
+        <Tab.Screen
+          name='Map'
+          component={Map}
+          options={{tabBarIcon: () => <IconButton icon={'map'} size={24}/>}}
+        />
+        <Tab.Screen
+          name='Capitals'
+          component={Capitals}
+          options={{tabBarIcon: () => <IconButton icon={'city-variant'} size={24}/>}}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
-
-const LocationsScreen = () => <View/>
-const AddLocationScreen = () => <View/>
-const MapScreen = () => <View/>
-const CapitalsScreen = () => <View/>
