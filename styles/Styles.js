@@ -7,4 +7,33 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  listItem: {
+    //flexDirection: 'row',
+  },
+  starRating: {
+    alignItems: "flex-start",
+  },
+  listflex: {
+    flexDirection: 'row-reverse',
+    //backgroundColor: 'lightgray',
+  },
+  textContainer: {
+    flexShrink: 1,
+  },
+  buttonContainer: {
+    //backgroundColor: 'red',
+    width: 100,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    // top: 0,
+    // right: 0,
+  },
+  listButton: {
+    width: 80,
+    height: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 })
