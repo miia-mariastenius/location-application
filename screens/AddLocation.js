@@ -7,44 +7,56 @@ import { LocationContext } from "../context/LocationContext";
 import * as Location from 'expo-location'
 
 export default function LocationsScreen() {
-  
+
   const [place, setPlace] = useState('')
   const [description, setDescription] = useState('')
-  const [loc, setLoc] = useState(null)
   const [latitude, setLatitude] = useState(0)
   const [longitude, setLongitude] = useState(0)
 
-  const {setLocation} = useContext(LocationContext)
+  const { setLocation } = useContext(LocationContext)
 
-  useEffect(()=>{
+  useEffect(() => {
     getLocation()
-    async function getLocation(){
-      let {status} = await Location.requestForegroundPermissionsAsync()
+    async function getLocation() {
+      let { status } = await Location.requestForegroundPermissionsAsync()
 
-      if(status !== 'granted'){
-        console.log('Geolocation failed. No permisson granted!')        
+      if (status !== 'granted') {
+        console.log('Geolocation failed. No permisson granted!')
         return
       }
 
-      const location = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Lowest})
+      const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Lowest })
       setLatitude(location.coords.latitude);
       setLongitude(location.coords.longitude);
       setLocation({ lat: location.coords.latitude, lon: location.coords.longitude });
     }
-  },[])
+  }, [])
 
-  console.log('*** ', latitude, longitude)
-  
+  async function search() {
+    let coords = await Location.geocodeAsync(place)
+    if (coords[0]) {
+      setLatitude(coords[0].latitude);
+      setLongitude(coords[0].longitude);
+      setLocation({ lat: coords[0].latitude, lon: coords[0].longitude });
+
+    } else {
+      Alert.alert('Location not found!')
+    }
+  }
+
+  console.log('*** ', latitude, longitude);
 
   return (
     <View>
-      <TextInput 
+      <TextInput
         value={place}
         onChangeText={setPlace}
-        label='Location name' 
-        mode='outlined' 
+        label='Location name'
+        mode='outlined'
       />
-      <TextInput label='Location description' mode='outlined' />
+      <TextInput
+        label='Location description'
+        mode='outlined' />
       <View>
         <View>
           <AirbnbRating
@@ -56,7 +68,7 @@ export default function LocationsScreen() {
           />
         </View>
       </View>
-      <Button mode='contained'>Add Location</Button>
+      <Button mode='contained' onPress={search}>Add Location</Button>
     </View>
   )
 }
