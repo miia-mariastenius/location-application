@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Button, Icon, List, Text } from "react-native-paper";
+import { Button, Divider, Icon, List, Text } from "react-native-paper";
 import { AirbnbRating } from 'react-native-ratings';
 import Styles from "../styles/Styles";
 
@@ -38,6 +38,8 @@ export default function LocationsScreen() {
           </View>
         </View>
       </List.Section>
+      
+      <Divider />
 
       <List.Section style={Styles.listItem}>
         <View style={Styles.listflex}>
