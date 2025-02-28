@@ -9,17 +9,17 @@ import AddLocation from './screens/AddLocation';
 import Map from './screens/Map';
 import Capitals from './screens/Capitals';
 import { LocationContext } from './context/LocationContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 const Tab = createBottomTabNavigator()
 
 
 export default function App() {
   
-  const location = useContext(LocationContext)
+  const [location, setLocation] = useState()
 
   return (
-    <LocationContext.Provider value={location}>
+    <LocationContext.Provider value={{location, setLocation}}>
       <NavigationContainer>
         <Tab.Navigator screenOptions={{tabBarLabelStyle: {fontSize: 12, color: 'black'}, tabBarStyle: {height: 58}, tabBarActiveBackgroundColor: '#E2E1F3'}}>
           <Tab.Screen

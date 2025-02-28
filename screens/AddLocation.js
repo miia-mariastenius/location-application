@@ -14,6 +14,8 @@ export default function LocationsScreen() {
   const [latitude, setLatitude] = useState(0)
   const [longitude, setLongitude] = useState(0)
 
+  const {setLocation} = useContext(LocationContext)
+
   useEffect(()=>{
     getLocation()
     async function getLocation(){
@@ -25,11 +27,13 @@ export default function LocationsScreen() {
       }
 
       const location = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Lowest})
-      setLoc({lat: location.coords.latitude, lon: location.coords.longitude})
+      setLatitude(location.coords.latitude);
+      setLongitude(location.coords.longitude);
+      setLocation({ lat: location.coords.latitude, lon: location.coords.longitude });
     }
   },[])
 
-  console.log('*** ', loc?.lat)
+  console.log('*** ', latitude, longitude)
   
 
   return (
