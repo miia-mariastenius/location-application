@@ -4,11 +4,17 @@ import { AirbnbRating } from 'react-native-ratings';
 import Styles from "../styles/Styles";
 import { useContext } from "react";
 import { LocationContext } from "../context/LocationContext";
+import { useNavigation } from "@react-navigation/native";
 
 
 export default function LocationsScreen() {
 
   const { locations } = useContext(LocationContext)
+  const navigation = useNavigation()
+
+  const showOnMap = (location) => {
+    navigation.navigate('Map', { location })
+  }
 
   return (
     <View>
@@ -43,8 +49,6 @@ export default function LocationsScreen() {
         </View>
       </List.Section> */}
 
-      <Divider />
-
       {locations.map((location, index) => (
         <List.Section key={index} style={Styles.listItem}>
           <View style={Styles.listflex}>
@@ -72,12 +76,14 @@ export default function LocationsScreen() {
                 icon="map-marker"
                 contentStyle={Styles.listButton}
                 labelStyle={{ fontSize: 60 }}
-                onPress={() => console.log('Show on map')}
+                onPress={() => showOnMap(location)}
               />
             </View>
+            {index < locations.length - 1 && <Divider />}
           </View>
         </List.Section>
       ))}
+      
     </View>
   )
 }
