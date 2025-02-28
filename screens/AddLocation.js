@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import { LocationContext } from "../context/LocationContext";
 import * as Location from 'expo-location'
 
-export default function LocationsScreen() {
+export default function AddLocation() {
 
   const [place, setPlace] = useState('')
   const [description, setDescription] = useState('')
@@ -14,7 +14,7 @@ export default function LocationsScreen() {
   const [longitude, setLongitude] = useState(0)
   const [rating, setRating] = useState(4)
 
-  const { setLocation } = useContext(LocationContext)
+  const { addLocation } = useContext(LocationContext)
 
   useEffect(() => {
     getLocation()
@@ -29,7 +29,7 @@ export default function LocationsScreen() {
       const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Lowest })
       setLatitude(location.coords.latitude)
       setLongitude(location.coords.longitude)
-      setLocation({ lat: location.coords.latitude, lon: location.coords.longitude })
+      // setLocation({ lat: location.coords.latitude, lon: location.coords.longitude })
     }
   }, [])
 
@@ -38,7 +38,7 @@ export default function LocationsScreen() {
     if (coords[0]) {
       setLatitude(coords[0].latitude)
       setLongitude(coords[0].longitude)
-      setLocation({ name: place, description, rating, coords: { lat: coords[0].latitude, lon: coords[0].longitude } })
+      addLocation({ name: place, description, rating, coords: { lat: coords[0].latitude, lon: coords[0].longitude } })
 
     } else {
       Alert.alert('Location not found!')

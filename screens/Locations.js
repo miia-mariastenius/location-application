@@ -8,7 +8,7 @@ import { LocationContext } from "../context/LocationContext";
 
 export default function LocationsScreen() {
 
-  const { location } = useContext(LocationContext)
+  const { locations } = useContext(LocationContext)
 
   return (
     <View>
@@ -45,8 +45,8 @@ export default function LocationsScreen() {
 
       <Divider />
 
-      {location.name ? (
-        <List.Section style={Styles.listItem}>
+      {locations.map((location, index) => (
+        <List.Section key={index} style={Styles.listItem}>
           <View style={Styles.listflex}>
             <List.Item
               title={location.name}
@@ -77,7 +77,7 @@ export default function LocationsScreen() {
             </View>
           </View>
         </List.Section>
-      ) : null}
+      ))}
     </View>
   )
 }

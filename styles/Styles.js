@@ -18,7 +18,7 @@ export default StyleSheet.create({
   listflex: {
     flex: 1,
     //flexDirection: 'row-reverse',
-    backgroundColor: 'lightgray',
+    //backgroundColor: 'lightgray',
   },
   textContainer: {
     flexShrink: 1,

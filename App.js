@@ -16,15 +16,14 @@ const Tab = createBottomTabNavigator()
 
 export default function App() {
   
-  const [location, setLocation] = useState({
-    name: '',
-    description: '',
-    rating: 0,
-    coords: { lat: 0, lon: 0 }
-  });
+  const [locations, setLocations] = useState([])
+
+  const addLocation = (location) => {
+    setLocations([...locations, location]);
+  }
 
   return (
-    <LocationContext.Provider value={{location, setLocation}}>
+    <LocationContext.Provider value={{ locations, addLocation }}>
       <NavigationContainer>
         <Tab.Navigator screenOptions={{tabBarLabelStyle: {fontSize: 12, color: 'black'}, tabBarStyle: {height: 58}, tabBarActiveBackgroundColor: '#E2E1F3'}}>
           <Tab.Screen
