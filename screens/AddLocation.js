@@ -12,6 +12,7 @@ export default function LocationsScreen() {
   const [description, setDescription] = useState('')
   const [latitude, setLatitude] = useState(0)
   const [longitude, setLongitude] = useState(0)
+  const [rating, setRating] = useState(4)
 
   const { setLocation } = useContext(LocationContext)
 
@@ -26,18 +27,18 @@ export default function LocationsScreen() {
       }
 
       const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Lowest })
-      setLatitude(location.coords.latitude);
-      setLongitude(location.coords.longitude);
-      setLocation({ lat: location.coords.latitude, lon: location.coords.longitude });
+      setLatitude(location.coords.latitude)
+      setLongitude(location.coords.longitude)
+      setLocation({ lat: location.coords.latitude, lon: location.coords.longitude })
     }
   }, [])
 
   async function search() {
     let coords = await Location.geocodeAsync(place)
     if (coords[0]) {
-      setLatitude(coords[0].latitude);
-      setLongitude(coords[0].longitude);
-      setLocation({ lat: coords[0].latitude, lon: coords[0].longitude });
+      setLatitude(coords[0].latitude)
+      setLongitude(coords[0].longitude)
+      setLocation({ name: place, description, rating, coords: { lat: coords[0].latitude, lon: coords[0].longitude } })
 
     } else {
       Alert.alert('Location not found!')
@@ -55,16 +56,18 @@ export default function LocationsScreen() {
         mode='outlined'
       />
       <TextInput
+        value={description}
+        onChangeText={setDescription}
         label='Location description'
         mode='outlined' />
       <View>
         <View>
           <AirbnbRating
             count={5}
-            defaultRating={4}
+            defaultRating={rating}
             size={50}
             showRating={false}
-            onFinishRating={(rating) => console.log("Selected rating:", rating)}
+            onFinishRating={(rating) => setRating(rating)}
           />
         </View>
       </View>

@@ -14,8 +14,8 @@ export default function LocationsScreen() {
       <MapView
         style={Styles.map}
         region={{
-          latitude: location?.lat,
-          longitude: location?.lon,
+          latitude: location?.lat || 60.200692,
+          longitude: location?.lon || 24.934302,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}

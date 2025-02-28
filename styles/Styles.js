@@ -8,14 +8,17 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   listItem: {
-    //flexDirection: 'row',
+    flexDirection: 'row',
+
   },
   starRating: {
     alignItems: "flex-start",
+    //backgroundColor: 'red',
   },
   listflex: {
-    flexDirection: 'row-reverse',
-    //backgroundColor: 'lightgray',
+    flex: 1,
+    //flexDirection: 'row-reverse',
+    backgroundColor: 'lightgray',
   },
   textContainer: {
     flexShrink: 1,
@@ -27,8 +30,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    // top: 0,
-    // right: 0,
+    top: 0,
+    right: 0,
   },
   listButton: {
     width: 80,
@@ -39,6 +42,5 @@ export default StyleSheet.create({
   map: {
     width: '100%',
     height: '100%',
-
   }
 })

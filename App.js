@@ -16,7 +16,12 @@ const Tab = createBottomTabNavigator()
 
 export default function App() {
   
-  const [location, setLocation] = useState()
+  const [location, setLocation] = useState({
+    name: '',
+    description: '',
+    rating: 0,
+    coords: { lat: 0, lon: 0 }
+  });
 
   return (
     <LocationContext.Provider value={{location, setLocation}}>
