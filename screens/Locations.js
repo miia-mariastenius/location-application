@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Button, Divider, Icon, List, Text } from "react-native-paper";
+import { Button, Divider, Icon, IconButton, List, Text } from "react-native-paper";
 import { AirbnbRating } from 'react-native-ratings';
 import Styles from "../styles/Styles";
 import { useContext } from "react";
@@ -18,50 +18,20 @@ export default function LocationsScreen() {
 
   return (
     <View>
-      {/* <List.Section style={Styles.listItem}>
-        <View style={Styles.listflex}>
-          <List.Item
-            title='Oulu'
-            titleStyle={{ fontSize: 50 }}
-            description={
-              <View style={Styles.starRating}>
-                <AirbnbRating
-                  count={5}
-                  defaultRating={4}
-                  size={30}
-                  showRating={false}
-                  isDisabled
-                />
-                <View style={Styles.textContainer}>
-                  <Text>Lorem ipsum dolor sit amet, consectetur adipiscing.</Text>
-                </View>
-              </View>
-            }
-          />
-          <View style={Styles.buttonContainer}>
-            <Button
-              mode="contained"
-              icon="map-marker"
-              contentStyle={Styles.listButton}
-              labelStyle={{ fontSize: 60 }}
-            />
-          </View>
-        </View>
-      </List.Section> */}
-
       {locations.map((location, index) => (
         <List.Section key={index} style={Styles.listItem}>
           <View style={Styles.listflex}>
             <List.Item
               title={location.name}
-              titleStyle={{ fontSize: 50 }}
+              titleStyle={Styles.listTitle}
               description={
-                <View style={Styles.starRating}>
+                <View>
                   <AirbnbRating
                     count={5}
                     defaultRating={location.rating}
-                    size={30}
+                    size={20}
                     showRating={false}
+                    selectedColor="#000"
                     isDisabled
                   />
                   <View style={Styles.textContainer}>
@@ -71,19 +41,18 @@ export default function LocationsScreen() {
               }
             />
             <View style={Styles.buttonContainer}>
-              <Button
-                mode="contained"
+              <IconButton
                 icon="map-marker"
-                contentStyle={Styles.listButton}
-                labelStyle={{ fontSize: 60 }}
+                iconColor="#E52E2C"
+                size={70}
                 onPress={() => showOnMap(location)}
+                style={Styles.listButton}
               />
             </View>
             {index < locations.length - 1 && <Divider />}
           </View>
         </List.Section>
       ))}
-      
     </View>
   )
 }

@@ -5,6 +5,7 @@ import Styles from "../styles/Styles";
 import { useContext, useEffect, useState } from "react";
 import { LocationContext } from "../context/LocationContext";
 import * as Location from 'expo-location'
+import { useNavigation } from "@react-navigation/native";
 
 export default function AddLocation() {
 
@@ -13,6 +14,8 @@ export default function AddLocation() {
   const [latitude, setLatitude] = useState(0)
   const [longitude, setLongitude] = useState(0)
   const [rating, setRating] = useState(4)
+
+  const navigation = useNavigation()
 
   const { addLocation } = useContext(LocationContext)
 
@@ -45,6 +48,10 @@ export default function AddLocation() {
     }
   }
 
+  const openLocationsScreen = () => {
+    navigation.navigate('Locations')
+  }
+
   console.log('*** ', latitude, longitude);
 
   return (
@@ -67,11 +74,18 @@ export default function AddLocation() {
             defaultRating={rating}
             size={50}
             showRating={false}
+            selectedColor="#000"
             onFinishRating={(rating) => setRating(rating)}
           />
         </View>
       </View>
-      <Button mode='contained' onPress={search}>Add Location</Button>
+      <Button mode='contained' onPress={() => {
+        search()
+        openLocationsScreen()
+      }}
+      >
+        Add Location
+      </Button>
     </View>
   )
 }
