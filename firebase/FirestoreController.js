@@ -6,15 +6,24 @@ export function useFireLocations(){
   const [locations, setLocations] = useState([])
 
   useEffect ( () => {
-
     const q = query(collection(db, LOCATIONS_REF))
 
-    onSnapshot(q, querySnapshot => {
-      querySnapshot.docs.forEach(d => {
-        console.log(d.id)        
-      })
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      setLocations(
+        querySnapshot.docs.map((doc) => {
+          const data = doc.data()
+
+          const coords = data.coords ? {
+            lat: data.coords.latitude, 
+            lon: data.coords.longitude
+          } : { lat: 0, lon: 0 }
+
+          return { id: doc.id, ...data, coords }
+        })
+      )
     })
 
+    return () => unsubscribe()
   }, [])
 
   return locations

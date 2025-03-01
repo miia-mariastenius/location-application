@@ -25,7 +25,7 @@ export default function LocationsScreen() {
               title={location.name}
               titleStyle={Styles.listTitle}
               description={
-                <View>
+                <View style={Styles.starRating}>
                   <AirbnbRating
                     count={5}
                     defaultRating={location.rating}

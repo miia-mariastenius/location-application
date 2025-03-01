@@ -19,10 +19,10 @@ export default StyleSheet.create({
     fontSize: 50,
     fontWeight: 'bold',
   },
-  // starRating: {
-  //   alignItems: "flex-start",
-  //   backgroundColor: 'red',
-  // },
+  starRating: {
+    alignItems: "flex-start",
+    //backgroundColor: 'red',
+  },
   listflex: {
     flex: 1,
     //flexDirection: 'row-reverse',
@@ -52,10 +52,10 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     shadowColor: "#000",
-  shadowOffset: { width: 0, height: 8 },
-  shadowOpacity: 0.2,
-  shadowRadius: 6,
-  elevation: 10,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 10,
   },
   map: {
     width: '100%',
