@@ -10,13 +10,16 @@ import Map from './screens/Map';
 import Capitals from './screens/Capitals';
 import { LocationContext } from './context/LocationContext';
 import { useContext, useState } from 'react';
+import { useFireLocations } from './firebase/FirestoreController';
 
 const Tab = createBottomTabNavigator()
 
 
 export default function App() {
   
-  const [locations, setLocations] = useState([])
+  //const [locations, setLocations] = useState([])
+
+  const locations = useFireLocations()
 
   const addLocation = (location) => {
     setLocations([...locations, location]);

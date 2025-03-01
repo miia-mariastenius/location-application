@@ -29,9 +29,9 @@ export default function AddLocation() {
         return
       }
 
-      const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Lowest })
-      setLatitude(location.coords.latitude)
-      setLongitude(location.coords.longitude)
+      // const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Lowest })
+      // setLatitude(location.coords.latitude)
+      // setLongitude(location.coords.longitude)
       // setLocation({ lat: location.coords.latitude, lon: location.coords.longitude })
     }
   }, [])
