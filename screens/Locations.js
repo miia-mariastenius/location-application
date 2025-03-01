@@ -5,6 +5,8 @@ import Styles from "../styles/Styles";
 import { useContext } from "react";
 import { LocationContext } from "../context/LocationContext";
 import { useNavigation } from "@react-navigation/native";
+import AddLocation from "./AddLocation";
+import { addLocation } from "../firebase/FirestoreController";
 
 
 export default function LocationsScreen() {
@@ -15,6 +17,16 @@ export default function LocationsScreen() {
   const showOnMap = (location) => {
     navigation.navigate('Map', { location })
   }
+
+  const handleAddTestLocation = () => {
+    addLocation({
+      name: "New York",
+      description: "The city that never sleeps.",
+      rating: 3,
+      latitude: 40.7128,
+      longitude: -74.0060
+    });
+  };
 
   return (
     <View>
@@ -53,6 +65,13 @@ export default function LocationsScreen() {
           </View>
         </List.Section>
       ))}
+      <Button
+        mode="contained"
+        onPress={handleAddTestLocation}
+        style={{ margin: 10 }}
+      >
+        Add Test Location
+      </Button>
     </View>
   )
 }
