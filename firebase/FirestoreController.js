@@ -1,4 +1,4 @@
-import { addDoc, collection, GeoPoint, onSnapshot, query } from "firebase/firestore";
+import { addDoc, collection, GeoPoint, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db, LOCATIONS_REF } from "./config";
 
@@ -6,7 +6,7 @@ export function useFireLocations(){
   const [locations, setLocations] = useState([])
 
   useEffect ( () => {
-    const q = query(collection(db, LOCATIONS_REF))
+    const q = query(collection(db, LOCATIONS_REF), orderBy("timestamp", "desc"))
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setLocations(
@@ -34,7 +34,8 @@ export function addLocation({ name, description, rating, latitude, longitude }) 
     name,
     description,
     rating,
-    coords: new GeoPoint(latitude, longitude)
+    coords: new GeoPoint(latitude, longitude),
+    timestamp: serverTimestamp(),
   }
 
   addDoc(collection(db, LOCATIONS_REF), locationData)

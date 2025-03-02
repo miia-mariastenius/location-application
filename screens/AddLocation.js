@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { AirbnbRating } from 'react-native-ratings'
 import Styles from "../styles/Styles";
@@ -6,53 +6,39 @@ import { useContext, useEffect, useState } from "react";
 import { LocationContext } from "../context/LocationContext";
 import * as Location from 'expo-location'
 import { useNavigation } from "@react-navigation/native";
+import { addLocation } from "../firebase/FirestoreController";
 
 export default function AddLocation() {
 
   const [place, setPlace] = useState('')
   const [description, setDescription] = useState('')
-  const [latitude, setLatitude] = useState(0)
-  const [longitude, setLongitude] = useState(0)
   const [rating, setRating] = useState(4)
 
   const navigation = useNavigation()
 
-  const { addLocation } = useContext(LocationContext)
-
-  useEffect(() => {
-    getLocation()
-    async function getLocation() {
-      let { status } = await Location.requestForegroundPermissionsAsync()
-
-      if (status !== 'granted') {
-        console.log('Geolocation failed. No permisson granted!')
-        return
+  async function searchAndAddLocation() {
+    let coords = await Location.geocodeAsync(place);
+    if (coords.length > 0) {
+      const { latitude, longitude } = coords[0];
+  
+      try {
+        await addLocation({ name: place, description, rating, latitude, longitude })
+        console.log("Location added to Firestore!")
+        
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Locations" }],
+        })
+  
+      } catch (error) {
+        console.error("Error adding location:", error)
+        Alert.alert("Error", "Failed to add location.")
       }
-
-      // const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Lowest })
-      // setLatitude(location.coords.latitude)
-      // setLongitude(location.coords.longitude)
-      // setLocation({ lat: location.coords.latitude, lon: location.coords.longitude })
-    }
-  }, [])
-
-  async function search() {
-    let coords = await Location.geocodeAsync(place)
-    if (coords[0]) {
-      setLatitude(coords[0].latitude)
-      setLongitude(coords[0].longitude)
-      addLocation({ name: place, description, rating, coords: { lat: coords[0].latitude, lon: coords[0].longitude } })
-
     } else {
-      Alert.alert('Location not found!')
+      Alert.alert("Location not found!")
     }
   }
-
-  const openLocationsScreen = () => {
-    navigation.navigate('Locations')
-  }
-
-  console.log('*** ', latitude, longitude);
+  
 
   return (
     <View>
@@ -75,15 +61,11 @@ export default function AddLocation() {
             size={50}
             showRating={false}
             selectedColor="#000"
-            onFinishRating={(rating) => setRating(rating)}
+            onFinishRating={(newRating) => setRating(newRating)}
           />
         </View>
       </View>
-      <Button mode='contained' onPress={() => {
-        search()
-        openLocationsScreen()
-      }}
-      >
+      <Button mode='contained' onPress={searchAndAddLocation}>
         Add Location
       </Button>
     </View>

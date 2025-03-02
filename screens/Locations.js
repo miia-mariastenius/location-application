@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Button, Divider, Icon, IconButton, List, Text } from "react-native-paper";
 import { AirbnbRating } from 'react-native-ratings';
 import Styles from "../styles/Styles";
@@ -18,60 +18,45 @@ export default function LocationsScreen() {
     navigation.navigate('Map', { location })
   }
 
-  const handleAddTestLocation = () => {
-    addLocation({
-      name: "New York",
-      description: "The city that never sleeps.",
-      rating: 3,
-      latitude: 40.7128,
-      longitude: -74.0060
-    });
-  };
-
   return (
     <View>
-      {locations.map((location, index) => (
-        <List.Section key={index} style={Styles.listItem}>
-          <View style={Styles.listflex}>
-            <List.Item
-              title={location.name}
-              titleStyle={Styles.listTitle}
-              description={
-                <View style={Styles.starRating}>
-                  <AirbnbRating
-                    count={5}
-                    defaultRating={location.rating}
-                    size={20}
-                    showRating={false}
-                    selectedColor="#000"
-                    isDisabled
-                  />
-                  <View style={Styles.textContainer}>
-                    <Text>{location.description}</Text>
+      <ScrollView>
+        {locations.map((location, index) => (
+          <List.Section key={index} style={Styles.listItem}>
+            <View style={Styles.listflex}>
+              <List.Item
+                title={location.name}
+                titleStyle={Styles.listTitle}
+                description={
+                  <View style={Styles.starRating}>
+                    <AirbnbRating
+                      count={5}
+                      defaultRating={location.rating}
+                      size={20}
+                      showRating={false}
+                      selectedColor="#000"
+                      isDisabled
+                    />
+                    <View style={Styles.textContainer}>
+                      <Text>{location.description}</Text>
+                    </View>
                   </View>
-                </View>
-              }
-            />
-            <View style={Styles.buttonContainer}>
-              <IconButton
-                icon="map-marker"
-                iconColor="#E52E2C"
-                size={70}
-                onPress={() => showOnMap(location)}
-                style={Styles.listButton}
+                }
               />
+              <View style={Styles.buttonContainer}>
+                <IconButton
+                  icon="map-marker"
+                  iconColor="#E52E2C"
+                  size={70}
+                  onPress={() => showOnMap(location)}
+                  style={Styles.listButton}
+                />
+              </View>
+              {index < locations.length - 1 && <Divider />}
             </View>
-            {index < locations.length - 1 && <Divider />}
-          </View>
-        </List.Section>
-      ))}
-      <Button
-        mode="contained"
-        onPress={handleAddTestLocation}
-        style={{ margin: 10 }}
-      >
-        Add Test Location
-      </Button>
+          </List.Section>
+        ))}
+      </ScrollView>
     </View>
   )
 }
