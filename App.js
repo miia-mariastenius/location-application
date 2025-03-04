@@ -28,7 +28,7 @@ export default function App() {
   return (
     <LocationContext.Provider value={{ locations, addLocation }}>
       <PaperProvider theme={MyTheme}>
-        <NavigationContainer>
+        <NavigationContainer >
           <Tab.Navigator screenOptions={{headerStyle: {backgroundColor:'#e6e5f5'}, tabBarLabelStyle: { fontSize: 12, color: 'black' }, tabBarStyle: {height: 58, backgroundColor: '#e6e5f5'}, tabBarActiveBackgroundColor: '#F2F2FF'}}>
             <Tab.Screen
               name='Locations'

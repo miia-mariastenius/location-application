@@ -7,6 +7,7 @@ export const MyTheme = {
     ...MD3LightTheme.colors,
     primary: '#21005D',
     secondaryContainer: '#ac9ec6',
+    background: '#F2F2FF'
   },
 }
 
@@ -71,14 +72,19 @@ export default StyleSheet.create({
     height: '100%',
   },
   locationForm:{
-    gap: 10,
+    gap: 5,
     padding: 10,
+  },
+  formInputs:{
+    backgroundColor: '#ffffff'
   },
   formButton:{
     padding: 5,
     borderRadius: 30,
   },
   searchInput:{
-    //borderRadius: 30,
-  }
+    margin: 5,
+    borderRadius: 10,
+    backgroundColor: '#ffffff'
+  },
 })

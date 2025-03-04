@@ -1,7 +1,7 @@
 import { ScrollView, View } from "react-native";
 import { Button, Divider, Icon, IconButton, List, Text } from "react-native-paper";
 import { AirbnbRating } from 'react-native-ratings';
-import Styles from "../styles/Styles";
+import Styles, { MyTheme } from "../styles/Styles";
 import { useContext } from "react";
 import { LocationContext } from "../context/LocationContext";
 import { useNavigation } from "@react-navigation/native";
@@ -19,7 +19,7 @@ export default function LocationsScreen() {
   }
 
   return (
-    <View>
+    <View style={{ flex: 1, backgroundColor: MyTheme.colors.background }}>
       <ScrollView>
         {locations.map((location, index) => (
           <List.Section key={index} style={Styles.listItem}>

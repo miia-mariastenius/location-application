@@ -1,7 +1,7 @@
 import { Alert, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { AirbnbRating } from 'react-native-ratings'
-import Styles from "../styles/Styles";
+import Styles, { MyTheme } from "../styles/Styles";
 import { useContext, useEffect, useState } from "react";
 import { LocationContext } from "../context/LocationContext";
 import * as Location from 'expo-location'
@@ -25,7 +25,7 @@ export default function AddLocation() {
     }
 
     let coords = await Location.geocodeAsync(place)
-    
+
     if (coords.length > 0) {
       const { latitude, longitude } = coords[0]
 
@@ -49,33 +49,40 @@ export default function AddLocation() {
 
 
   return (
-    <View style={Styles.locationForm}>
-      <TextInput
-        value={place}
-        onChangeText={setPlace}
-        label='Location name'
-        mode='outlined'
-      />
-      <TextInput
-        value={description}
-        onChangeText={setDescription}
-        label='Location description'
-        mode='outlined' />
-      <View>
+    <View style={{ flex: 1, backgroundColor: MyTheme.colors.background }}>
+      <View style={Styles.locationForm}>
+        <TextInput
+          value={place}
+          onChangeText={setPlace}
+          label='Location name'
+          mode='outlined'
+          style={Styles.formInputs}
+          theme={{ roundness: 10 }}
+        />
+        <TextInput
+          value={description}
+          onChangeText={setDescription}
+          label='Location description'
+          mode='outlined' 
+          style={Styles.formInputs}
+          theme={{ roundness: 10 }}
+        />
         <View>
-          <AirbnbRating
-            count={5}
-            defaultRating={rating}
-            size={50}
-            showRating={false}
-            selectedColor="#000"
-            onFinishRating={(newRating) => setRating(newRating)}
-          />
+          <View>
+            <AirbnbRating
+              count={5}
+              defaultRating={rating}
+              size={50}
+              showRating={false}
+              selectedColor="#000"
+              onFinishRating={(newRating) => setRating(newRating)}
+            />
+          </View>
         </View>
+        <Button mode='contained' onPress={searchAndAddLocation} style={Styles.formButton}>
+          Add Location
+        </Button>
       </View>
-      <Button mode='contained' onPress={searchAndAddLocation} style={Styles.formButton}>
-        Add Location
-      </Button>
     </View>
   )
 }
