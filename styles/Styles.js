@@ -77,5 +77,8 @@ export default StyleSheet.create({
   formButton:{
     padding: 5,
     borderRadius: 30,
+  },
+  searchInput:{
+    //borderRadius: 30,
   }
 })
