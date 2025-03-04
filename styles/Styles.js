@@ -1,6 +1,14 @@
 import { StyleSheet } from "react-native";
 import { MD3LightTheme } from "react-native-paper";
 
+export const MyTheme = {
+  ...MD3LightTheme,
+  colors:{
+    ...MD3LightTheme.colors,
+    primary: '#21005D',
+    secondaryContainer: '#ac9ec6',
+  },
+}
 
 export default StyleSheet.create({
   container: {
@@ -18,6 +26,7 @@ export default StyleSheet.create({
   listTitle: {
     fontSize: 50,
     fontWeight: 'bold',
+    marginTop: -12,
   },
   starRating: {
     alignItems: "flex-start",
@@ -60,5 +69,13 @@ export default StyleSheet.create({
   map: {
     width: '100%',
     height: '100%',
+  },
+  locationForm:{
+    gap: 10,
+    padding: 10,
+  },
+  formButton:{
+    padding: 5,
+    borderRadius: 30,
   }
 })

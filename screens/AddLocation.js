@@ -17,19 +17,27 @@ export default function AddLocation() {
   const navigation = useNavigation()
 
   async function searchAndAddLocation() {
-    let coords = await Location.geocodeAsync(place);
+
+    let { status } = await Location.requestForegroundPermissionsAsync()
+    if (status !== 'granted') {
+      console.log('Geolocation failed. No permisson granted!')
+      return
+    }
+
+    let coords = await Location.geocodeAsync(place)
+    
     if (coords.length > 0) {
-      const { latitude, longitude } = coords[0];
-  
+      const { latitude, longitude } = coords[0]
+
       try {
         await addLocation({ name: place, description, rating, latitude, longitude })
         console.log("Location added to Firestore!")
-        
+
         navigation.reset({
           index: 0,
           routes: [{ name: "Locations" }],
         })
-  
+
       } catch (error) {
         console.error("Error adding location:", error)
         Alert.alert("Error", "Failed to add location.")
@@ -38,10 +46,10 @@ export default function AddLocation() {
       Alert.alert("Location not found!")
     }
   }
-  
+
 
   return (
-    <View>
+    <View style={Styles.locationForm}>
       <TextInput
         value={place}
         onChangeText={setPlace}
@@ -65,7 +73,7 @@ export default function AddLocation() {
           />
         </View>
       </View>
-      <Button mode='contained' onPress={searchAndAddLocation}>
+      <Button mode='contained' onPress={searchAndAddLocation} style={Styles.formButton}>
         Add Location
       </Button>
     </View>
