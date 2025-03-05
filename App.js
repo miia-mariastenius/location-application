@@ -12,6 +12,7 @@ import { LocationContext } from './context/LocationContext';
 import { useContext, useEffect, useState } from 'react';
 import { useFireLocations, addLocation } from './firebase/FirestoreController';
 import { logoutUser, signUpUser, useFireAuth } from './firebase/FirebaseAuthController';
+import Login from './screens/Login';
 
 const Tab = createBottomTabNavigator()
 
@@ -30,31 +31,37 @@ export default function App() {
   return (
     <LocationContext.Provider value={{ locations, addLocation }}>
       <PaperProvider theme={MyTheme}>
-        <NavigationContainer >
-          <Tab.Navigator screenOptions={{headerStyle: {backgroundColor:'#e6e5f5'}, tabBarLabelStyle: { fontSize: 12, color: 'black' }, tabBarStyle: {height: 58, backgroundColor: '#e6e5f5'}, tabBarActiveBackgroundColor: '#F2F2FF'}}>
-            <Tab.Screen
-              name='Locations'
-              component={Locations}
-              options={{ tabBarIcon: () => <IconButton icon={'format-list-bulleted'} size={24} /> }}
-            />
-            <Tab.Screen
-              name='Add Location'
-              component={AddLocation}
-              options={{ tabBarIcon: () => <IconButton icon={'plus-circle'} size={24} /> }}
-            />
-            <Tab.Screen
-              name='Map'
-              component={Map}
-              options={{ tabBarIcon: () => <IconButton icon={'map'} size={24} /> }}
-            />
-            <Tab.Screen
-              name='Capitals'
-              component={Capitals}
-              options={{ tabBarIcon: () => <IconButton icon={'city-variant'} size={24} /> }}
-            />
-          </Tab.Navigator>
-        </NavigationContainer>
+        {user ? <Navigation /> : <Login />}
       </PaperProvider>
     </LocationContext.Provider>
   );
+}
+
+function Navigation() {
+  return (
+    <NavigationContainer >
+      <Tab.Navigator screenOptions={{ headerStyle: { backgroundColor: '#e6e5f5' }, tabBarLabelStyle: { fontSize: 12, color: 'black' }, tabBarStyle: { height: 58, backgroundColor: '#e6e5f5' }, tabBarActiveBackgroundColor: '#F2F2FF' }}>
+        <Tab.Screen
+          name='Locations'
+          component={Locations}
+          options={{ tabBarIcon: () => <IconButton icon={'format-list-bulleted'} size={24} /> }}
+        />
+        <Tab.Screen
+          name='Add Location'
+          component={AddLocation}
+          options={{ tabBarIcon: () => <IconButton icon={'plus-circle'} size={24} /> }}
+        />
+        <Tab.Screen
+          name='Map'
+          component={Map}
+          options={{ tabBarIcon: () => <IconButton icon={'map'} size={24} /> }}
+        />
+        <Tab.Screen
+          name='Capitals'
+          component={Capitals}
+          options={{ tabBarIcon: () => <IconButton icon={'city-variant'} size={24} /> }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  )
 }

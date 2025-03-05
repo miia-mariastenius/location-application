@@ -87,4 +87,25 @@ export default StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#ffffff'
   },
+  loginContainer:{
+    marginRight: 20,
+    marginLeft: 20,
+    padding: 15,
+    gap: 10,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderRadius: 20,
+  },
+  loginFont: {
+    fontSize: 50,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  loginTitle:{
+    alignItems: "center",
+  },
+  loginButton:{
+    marginTop: 50,
+  }
 })
