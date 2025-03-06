@@ -5,8 +5,6 @@ import Styles, { MyTheme } from "../styles/Styles";
 import { useContext } from "react";
 import { LocationContext } from "../context/LocationContext";
 import { useNavigation } from "@react-navigation/native";
-import AddLocation from "./AddLocation";
-import { addLocation } from "../firebase/FirestoreController";
 
 
 export default function LocationsScreen() {
@@ -52,7 +50,7 @@ export default function LocationsScreen() {
                   style={Styles.listButton}
                 />
               </View>
-              {index < locations.length - 1 && <Divider />}
+              <Divider />
             </View>
           </List.Section>
         ))}

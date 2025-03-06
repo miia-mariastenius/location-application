@@ -54,7 +54,7 @@ export default function LocationsScreen() {
         {filteredCountries.map((country, index) => (
           <View>
             {index < filteredCountries.length - 1 && (<Divider />)}
-            <List.Section key={index} style={Styles.listItem}>
+            <List.Section style={Styles.listItem}>
               <View style={Styles.listflex}>
                 <List.Item
                   title={country.name.common}

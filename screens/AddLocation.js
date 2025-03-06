@@ -1,12 +1,11 @@
-import { Alert, View } from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
-import { AirbnbRating } from 'react-native-ratings'
-import Styles, { MyTheme } from "../styles/Styles";
-import { useContext, useEffect, useState } from "react";
-import { LocationContext } from "../context/LocationContext";
-import * as Location from 'expo-location'
 import { useNavigation } from "@react-navigation/native";
+import * as Location from 'expo-location';
+import { useState } from "react";
+import { Alert, View } from "react-native";
+import { Button, TextInput } from "react-native-paper";
+import { AirbnbRating } from 'react-native-ratings';
 import { addLocation } from "../firebase/FirestoreController";
+import Styles, { MyTheme } from "../styles/Styles";
 
 export default function AddLocation() {
 

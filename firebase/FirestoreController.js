@@ -1,35 +1,34 @@
-import { addDoc, collection, GeoPoint, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { db, LOCATIONS_REF } from "./config";
+import { addDoc, collection, GeoPoint, serverTimestamp } from "firebase/firestore";
+import { auth, db, LOCATIONS_REF, USERS_REF } from "./config";
 
-export function useFireLocations(){
-  const [locations, setLocations] = useState([])
+// export function useFireLocations(){
+//   const [locations, setLocations] = useState([])
 
-  useEffect ( () => {
-    const q = query(collection(db, LOCATIONS_REF), orderBy("timestamp", "desc"))
+//   useEffect ( () => {
+//     const q = query(collection(db, LOCATIONS_REF), orderBy("timestamp", "desc"))
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      setLocations(
-        querySnapshot.docs.map((doc) => {
-          const data = doc.data()
+//     const unsubscribe = onSnapshot(q, (querySnapshot) => {
+//       setLocations(
+//         querySnapshot.docs.map((doc) => {
+//           const data = doc.data()
 
-          const coords = data.coords ? {
-            lat: data.coords.latitude, 
-            lon: data.coords.longitude
-          } : { lat: 0, lon: 0 }
+//           const coords = data.coords ? {
+//             lat: data.coords.latitude, 
+//             lon: data.coords.longitude
+//           } : { lat: 0, lon: 0 }
 
-          return { id: doc.id, ...data, coords }
-        })
-      )
-    })
+//           return { id: doc.id, ...data, coords }
+//         })
+//       )
+//     })
 
-    return () => unsubscribe()
-  }, [])
+//     return () => unsubscribe()
+//   }, [])
 
-  return locations
-}
+//   return locations
+// }
 
-export function addLocation({ name, description, rating, latitude, longitude }) {
+export async function addLocation({ name, description, rating, latitude, longitude }) {
   const locationData = {
     name,
     description,
@@ -38,7 +37,8 @@ export function addLocation({ name, description, rating, latitude, longitude }) 
     timestamp: serverTimestamp(),
   }
 
-  addDoc(collection(db, LOCATIONS_REF), locationData)
+  const subColRef = collection(db, USERS_REF, auth.currentUser.uid, LOCATIONS_REF)
+  await addDoc(subColRef, locationData)
     .then(() => {
       console.log('Location added!')
     })
