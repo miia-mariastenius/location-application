@@ -32,7 +32,7 @@ export default function App() {
 }
 
 function Navigation() {
-  const user = useContext(UserContext)
+  const {user} = useContext(UserContext)
 
   return (
     <NavigationContainer>

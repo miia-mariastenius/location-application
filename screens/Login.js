@@ -40,6 +40,7 @@ export default function Login() {
           left={<TextInput.Icon icon={'lock'} />}
           mode="outlined"
           style={Styles.formInputs}
+          secureTextEntry
         />
         <Button mode='contained' onPress={signAction} style={Styles.loginButton}>Login</Button>
       </View>

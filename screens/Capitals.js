@@ -52,8 +52,8 @@ export default function LocationsScreen() {
       />
       <ScrollView>
         {filteredCountries.map((country, index) => (
-          <View>
-            {index < filteredCountries.length - 1 && (<Divider />)}
+          <View key={country.cca3 || index}>
+            <Divider />
             <List.Section style={Styles.listItem}>
               <View style={Styles.listflex}>
                 <List.Item
@@ -68,6 +68,7 @@ export default function LocationsScreen() {
                 />
               </View>
             </List.Section>
+            <Divider />
           </View>
         ))}
       </ScrollView>
